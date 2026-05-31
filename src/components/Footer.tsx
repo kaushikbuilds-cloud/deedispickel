@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
   return (
@@ -23,9 +23,6 @@ export default function Footer() {
               Bringing the authentic taste of tradition to your kitchen. 100% natural, homemade style pickles.
             </p>
             <div className="flex gap-4">
-              <a href="#" aria-label="Facebook" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[var(--color-accent-red)] transition-colors">
-                <FaFacebook className="w-5 h-5" />
-              </a>
               <a
                 href="https://www.instagram.com/deedishomefoods?igsh=MWlkdHphdjQ2NHVqOQ=="
                 target="_blank"
@@ -34,9 +31,6 @@ export default function Footer() {
                 className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[var(--color-accent-red)] transition-colors"
               >
                 <FaInstagram className="w-5 h-5" />
-              </a>
-              <a href="#" aria-label="Youtube" className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-[var(--color-accent-red)] transition-colors">
-                <FaYoutube className="w-5 h-5" />
               </a>
             </div>
           </div>
