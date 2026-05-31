@@ -19,9 +19,14 @@ export default function Footer() {
                 className="h-12 w-auto object-contain brightness-0 invert"
               />
             </a>
-            <p className="text-gray-400 mb-6 font-medium">
+            <p className="text-gray-400 mb-4 font-medium">
               Bringing the authentic taste of tradition to your kitchen. 100% natural, homemade style pickles.
             </p>
+            <div className="text-gray-400 mb-6 space-y-2 text-sm">
+              <p>📍 Ooty, Tamil Nadu, India</p>
+              <p>📞 +91 63836 09055</p>
+              <p>✉️ Deedishomefoods@gmail.com</p>
+            </div>
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/deedishomefoods?igsh=MWlkdHphdjQ2NHVqOQ=="
@@ -39,10 +44,6 @@ export default function Footer() {
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">Shop</h4>
             <ul className="space-y-3 text-gray-400">
               <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">All Pickles</a></li>
-              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Mango Pickles</a></li>
-              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Vegetable Pickles</a></li>
-              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Non-Vegetarian Pickles</a></li>
-              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Combo Packs</a></li>
             </ul>
           </div>
 
@@ -68,8 +69,8 @@ export default function Footer() {
               }}
               className="flex"
             >
-              <input required type="email" placeholder="Enter your email address" className="bg-gray-800 text-white px-4 py-2 w-full rounded-l outline-none focus:ring-1 focus:ring-[var(--color-accent-red)]" />
-              <button type="submit" className="bg-[var(--color-accent-red)] px-4 py-2 rounded-r font-bold hover:bg-red-700 transition-colors">Subscribe</button>
+              <input required type="email" placeholder="Enter your email address" className="bg-white text-gray-900 px-4 py-2 w-full rounded-l outline-none focus:ring-1 focus:ring-[var(--color-accent-red)] border-none" />
+              <button type="submit" className="bg-[var(--color-accent-red)] text-white px-4 py-2 rounded-r font-bold hover:bg-red-700 transition-colors">Subscribe</button>
             </form>
           </div>
 

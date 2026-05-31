@@ -132,13 +132,16 @@ export default function CartDrawer() {
               <span className="text-gray-500">Shipping</span>
               <span className="text-gray-500 text-right">Calculated at Checkout</span>
             </div>
-            <a 
-              href="/checkout"
-              onClick={() => setIsCartOpen(false)}
+            <button 
+              onClick={() => {
+                const message = cart.map(item => `${item.quantity}x ${item.name}`).join('%0A');
+                window.open(`https://wa.me/916383609055?text=Hello! I would like to place an order for:%0A${message}%0A%0ATotal: ₹${cartTotal.toFixed(2)}`, '_blank');
+                setIsCartOpen(false);
+              }}
               className="w-full bg-[var(--color-accent-red)] text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-red-800 hover:shadow-lg transition-all duration-300"
             >
-              Proceed to Checkout
-            </a>
+              Order via WhatsApp
+            </button>
           </div>
         )}
         </motion.div>

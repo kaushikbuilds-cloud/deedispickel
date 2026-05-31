@@ -14,7 +14,7 @@ export default function StoryBanner() {
               <Leaf className="w-6 h-6 text-[var(--color-accent-green)]" />
               <h2 className="font-sans text-sm tracking-widest font-bold uppercase text-[var(--color-accent-green)]">Our Heritage</h2>
             </div>
-            <h3 className="font-serif text-4xl md:text-5xl font-bold text-[var(--color-accent-red)] mb-6 leading-tight">100 Years of Tradition in Every Jar</h3>
+            <h3 className="font-serif text-4xl md:text-5xl font-bold text-[var(--color-accent-red)] mb-6 leading-tight">Over Five Decades of Tradition in Every Jar</h3>
             <p className="text-[var(--color-text)] mb-8 leading-relaxed text-lg font-medium">
               Started in a small kitchen, our recipes have been passed down through generations. We use only the finest hand-picked ingredients, traditional spices, and cold-pressed oils.
             </p>

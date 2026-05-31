@@ -20,14 +20,14 @@ const montserrat = Montserrat({
 
 export const metadata: Metadata = {
   title: "Deedis | Premium Handcrafted South Indian Pickles",
-  description: "Premium handcrafted South Indian pickles. Made fresh and delivered worldwide. Tradition sealed in every jar.",
+  description: "Premium handcrafted South Indian pickles. Made fresh and delivered across India. Tradition sealed in every jar.",
   icons: {
     icon: "/pickellogo.png",
     apple: "/pickellogo.png",
   },
   openGraph: {
     title: "Deedis | Premium Handcrafted South Indian Pickles",
-    description: "Premium handcrafted South Indian pickles. Made fresh and delivered worldwide. Tradition sealed in every jar.",
+    description: "Premium handcrafted South Indian pickles. Made fresh and delivered across India. Tradition sealed in every jar.",
     images: ["/pickellogo.png"],
   },
 };

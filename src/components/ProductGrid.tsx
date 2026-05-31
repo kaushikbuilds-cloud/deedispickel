@@ -158,10 +158,7 @@ export default function ProductGrid() {
                       {product.name}
                     </h3>
                   </Link>
-                  <div className="flex items-center gap-2 mb-6">
-                    <div className="flex text-[var(--color-accent-yellow)] text-sm">★ ★ ★ ★ ★</div>
-                    <span className="text-xs text-[var(--color-muted)] font-medium">(42 Reviews)</span>
-                  </div>
+
                   <div className="mt-auto flex items-center justify-between">
                     <div>
                       <p className="text-2xl font-extrabold text-[var(--color-accent-red)]">
