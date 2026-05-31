@@ -54,7 +54,7 @@ export default function CheckoutPage() {
     message += `Please confirm my order and share the payment details.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappNumber = "917550247641"; 
+    const whatsappNumber = "916383609055"; 
     
     // Open WhatsApp in a new tab
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");

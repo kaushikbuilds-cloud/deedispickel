@@ -35,8 +35,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-sans font-bold text-xl text-[var(--color-text)] mb-1">Call or WhatsApp</h3>
                   <p className="text-[var(--color-muted)] mb-3 text-sm">We're available to talk during business hours.</p>
-                  <a href="tel:+917550247641" className="inline-flex items-center gap-2 font-bold text-lg text-[var(--color-accent-red)] hover:text-red-700 transition-colors">
-                    +91 755 024 7641
+                  <a href="https://wa.me/916383609055" className="inline-flex items-center gap-2 font-bold text-lg text-[var(--color-accent-red)] hover:text-red-700 transition-colors">
+                    +91 63836 09055
                   </a>
                 </div>
               </div>
@@ -50,8 +50,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-sans font-bold text-xl text-[var(--color-text)] mb-1">Email Us</h3>
                   <p className="text-[var(--color-muted)] mb-3 text-sm">Send us an email anytime. We reply within 24 hours.</p>
-                  <a href="mailto:hello@deedis.com" className="inline-flex items-center gap-2 font-bold text-lg text-[var(--color-accent-yellow)] hover:text-amber-600 transition-colors">
-                    hello@deedis.com
+                  <a href="mailto:Deedishomefoods@gmail.com" className="inline-flex items-center gap-2 font-bold text-lg text-[var(--color-accent-yellow)] hover:text-amber-600 transition-colors">
+                    Deedishomefoods@gmail.com
                   </a>
                 </div>
               </div>
@@ -66,9 +66,9 @@ export default function ContactPage() {
                   <h3 className="font-sans font-bold text-xl text-[var(--color-text)] mb-1">Visit Our Kitchen</h3>
                   <p className="text-[var(--color-muted)] mb-3 text-sm">Come experience the aroma of our traditional spices.</p>
                   <address className="not-italic text-[var(--color-text)] font-medium">
-                    Deedis Kitchens,<br/>
-                    Banjara Hills, Hyderabad,<br/>
-                    Telangana 500034
+                    Deedi's Home Foods,<br/>
+                    284, Segur Road, Ooty,<br/>
+                    Nilgiris - 643006
                   </address>
                 </div>
               </div>

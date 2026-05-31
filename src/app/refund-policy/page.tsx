@@ -15,7 +15,7 @@ export default function RefundPolicyPage() {
 
           <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">1. Damaged or Defective Items</h3>
           <p>
-            If your order arrives damaged, leaking, or compromised in any way, please contact us within 48 hours of delivery. Email us at <strong>hello@deedis.com</strong> or WhatsApp us with clear photos of the damaged item and packaging. We will gladly send a free replacement or issue a full refund to your original payment method.
+            If your order arrives damaged, leaking, or compromised in any way, please contact us within 48 hours of delivery. Email us at <strong>Deedishomefoods@gmail.com</strong> or WhatsApp us with clear photos of the damaged item and packaging. We will gladly send a free replacement or issue a full refund to your original payment method.
           </p>
 
           <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">2. Non-returnable Items</h3>
