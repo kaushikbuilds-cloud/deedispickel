@@ -22,9 +22,9 @@ export default function StoryBanner() {
               No artificial colors or preservatives. Just pure, authentic taste that reminds you of home. Every batch is sun-dried and crafted with love.
             </p>
             <div>
-              <button className="bg-transparent border-2 border-[var(--color-accent-red)] text-[var(--color-accent-red)] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[var(--color-accent-red)] hover:text-white transition-colors duration-300">
+              <a href="/about" className="bg-transparent border-2 border-[var(--color-accent-red)] text-[var(--color-accent-red)] px-8 py-3 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[var(--color-accent-red)] hover:text-white transition-colors duration-300 inline-block">
                 Read Our Story
-              </button>
+              </a>
             </div>
           </div>
         </div>

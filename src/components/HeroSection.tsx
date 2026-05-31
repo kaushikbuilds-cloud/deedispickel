@@ -47,12 +47,12 @@ export default function HeroSection() {
             <p className="text-lg md:text-xl text-[var(--color-muted)] font-sans max-w-sm mb-8 font-light">
               We preserve the soul of South India in every jar. Handcrafted, sun-dried, and perfectly spiced.
             </p>
-            <button className="group flex items-center gap-4 text-[var(--color-text)] uppercase tracking-widest text-sm font-bold">
+            <a href="/#shop" className="group flex items-center gap-4 text-[var(--color-text)] uppercase tracking-widest text-sm font-bold">
               <span className="border-b border-[var(--color-accent)] pb-1 group-hover:text-[var(--color-accent)] transition-colors">Discover Collection</span>
               <div className="w-10 h-10 rounded-full border border-[var(--color-accent)]/30 flex items-center justify-center group-hover:bg-[var(--color-accent)] group-hover:text-[#020502] transition-all duration-300">
                 <ArrowDownRight className="w-4 h-4" />
               </div>
-            </button>
+            </a>
           </motion.div>
 
         </div>

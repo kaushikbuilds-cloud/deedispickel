@@ -23,10 +23,15 @@ export default function FinalCTA() {
             <span className="font-display italic font-light text-[var(--color-accent)] text-stroke">THE TRADITION.</span>
           </h2>
           
-          <button className="group relative overflow-hidden mt-8 px-12 py-5 bg-[var(--color-accent)] text-[#020502] font-bold tracking-widest text-sm uppercase rounded-full hover:scale-105 transition-all duration-500 shadow-[0_0_40px_rgba(212,175,55,0.4)]">
+          <a
+            href="https://wa.me/917550247641"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative overflow-hidden mt-8 px-12 py-5 bg-[var(--color-accent)] text-[#020502] font-bold tracking-widest text-sm uppercase rounded-full hover:scale-105 transition-all duration-500 shadow-[0_0_40px_rgba(212,175,55,0.4)] inline-flex items-center gap-3"
+          >
             <span className="relative z-10">Order On WhatsApp</span>
             <div className="absolute inset-0 bg-white translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 ease-in-out" />
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

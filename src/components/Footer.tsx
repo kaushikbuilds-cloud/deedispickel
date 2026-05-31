@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
@@ -9,7 +10,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
           
           <div>
-            <h3 className="font-serif text-3xl font-bold text-[var(--color-accent-yellow)] mb-6">Deedis</h3>
+            <a href="/" aria-label="Deedis - Go to homepage" className="inline-block mb-6">
+              <Image
+                src="/pickellogo.png"
+                alt="Deedis"
+                width={130}
+                height={52}
+                className="h-12 w-auto object-contain brightness-0 invert"
+              />
+            </a>
             <p className="text-gray-400 mb-6 font-medium">
               Bringing the authentic taste of tradition to your kitchen. 100% natural, homemade style pickles.
             </p>

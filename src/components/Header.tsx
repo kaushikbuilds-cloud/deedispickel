@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -35,8 +36,15 @@ export default function Header() {
 
           {/* Logo - Center */}
           <div className="flex-1 md:flex-1 text-center md:absolute md:left-1/2 md:-translate-x-1/2">
-            <a href="/" className="font-serif text-3xl md:text-4xl font-extrabold text-[var(--color-accent-red)] tracking-tight">
-              Deedis<span className="text-[var(--color-accent-yellow)] text-5xl leading-[0]">.</span>
+            <a href="/" aria-label="Deedis - Go to homepage" className="inline-flex items-center justify-center">
+              <Image
+                src="/pickellogo.png"
+                alt="Deedis"
+                width={120}
+                height={48}
+                className="h-10 md:h-12 w-auto object-contain"
+                priority
+              />
             </a>
           </div>
 
@@ -75,8 +83,14 @@ export default function Header() {
           <div className="relative w-72 bg-white h-full flex flex-col shadow-2xl animate-in slide-in-from-left duration-300">
             {/* Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--color-border)]">
-              <a href="/" className="font-serif text-2xl font-extrabold text-[var(--color-accent-red)]" onClick={() => setMenuOpen(false)}>
-                Deedis<span className="text-[var(--color-accent-yellow)] text-4xl leading-[0]">.</span>
+              <a href="/" aria-label="Deedis - Go to homepage" onClick={() => setMenuOpen(false)} className="inline-flex items-center">
+                <Image
+                  src="/pickellogo.png"
+                  alt="Deedis"
+                  width={100}
+                  height={40}
+                  className="h-9 w-auto object-contain"
+                />
               </a>
               <button
                 onClick={() => setMenuOpen(false)}
