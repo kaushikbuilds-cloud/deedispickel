@@ -50,7 +50,7 @@ export default function MysteryBox() {
               <div className="absolute -top-6 -left-6 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center animate-bounce shadow-lg">
                 <span className="text-xl">🌶️</span>
               </div>
-              <div className="absolute -top-6 -right-6 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center animate-bounce shadow-lg" style={{ animationDelay: "0.2s" }}>
+              <div className="absolute -top-6 -right-6 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center animate-bounce shadow-lg [animation-delay:200ms]">
                 <span className="text-xl">🔥</span>
               </div>
 
