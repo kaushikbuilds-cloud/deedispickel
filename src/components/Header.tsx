@@ -11,27 +11,8 @@ export default function Header() {
     <header className="bg-white/80 backdrop-blur-lg border-b border-[var(--color-border)] sticky top-0 z-50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] transition-all duration-300">
       <div className="container mx-auto px-4 md:px-8 py-5 flex items-center justify-between">
         
-        {/* Navigation - Left */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-semibold tracking-wide text-[var(--color-text)] uppercase">
-          <a href="#" className="hover:text-[var(--color-accent-red)] transition-colors relative group">
-            Mango
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent-red)] group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#" className="hover:text-[var(--color-accent-red)] transition-colors relative group">
-            Vegetable
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent-red)] group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#" className="hover:text-[var(--color-accent-red)] transition-colors relative group">
-            Non-Veg
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent-red)] group-hover:w-full transition-all duration-300"></span>
-          </a>
-          <a href="#" className="hover:text-[var(--color-accent-red)] transition-colors relative group">
-            Combos
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--color-accent-red)] group-hover:w-full transition-all duration-300"></span>
-          </a>
-        </nav>
-
-        {/* Mobile menu placeholder to keep logo centered */}
+        {/* Empty left section to maintain flex alignment for absolute-centered logo */}
+        <div className="hidden md:block w-24"></div>
         <div className="w-10 md:hidden"></div>
         
         {/* Logo - Center */}

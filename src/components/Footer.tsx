@@ -1,3 +1,5 @@
+"use client";
+
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube } from "react-icons/fa";
 
 export default function Footer() {
@@ -27,11 +29,11 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">Shop</h4>
             <ul className="space-y-3 text-gray-400">
-              <li><a href="#" className="hover:text-[var(--color-accent-yellow)] transition-colors">All Pickles</a></li>
-              <li><a href="#" className="hover:text-[var(--color-accent-yellow)] transition-colors">Mango Pickles</a></li>
-              <li><a href="#" className="hover:text-[var(--color-accent-yellow)] transition-colors">Vegetable Pickles</a></li>
-              <li><a href="#" className="hover:text-[var(--color-accent-yellow)] transition-colors">Non-Vegetarian Pickles</a></li>
-              <li><a href="#" className="hover:text-[var(--color-accent-yellow)] transition-colors">Combo Packs</a></li>
+              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">All Pickles</a></li>
+              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Mango Pickles</a></li>
+              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Vegetable Pickles</a></li>
+              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Non-Vegetarian Pickles</a></li>
+              <li><a href="/#shop" className="hover:text-[var(--color-accent-yellow)] transition-colors">Combo Packs</a></li>
             </ul>
           </div>
 
@@ -49,10 +51,17 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-bold mb-6 text-white uppercase tracking-wider">Newsletter</h4>
             <p className="text-gray-400 mb-4">Subscribe to receive updates, access to exclusive deals, and more.</p>
-            <div className="flex">
-              <input type="email" placeholder="Enter your email address" className="bg-gray-800 text-white px-4 py-2 w-full rounded-l outline-none focus:ring-1 focus:ring-[var(--color-accent-red)]" />
-              <button className="bg-[var(--color-accent-red)] px-4 py-2 rounded-r font-bold hover:bg-red-700 transition-colors">Subscribe</button>
-            </div>
+            <form 
+              onSubmit={(e) => {
+                e.preventDefault();
+                alert("Thank you for subscribing to our newsletter! (This is a working demo)");
+                (e.target as HTMLFormElement).reset();
+              }}
+              className="flex"
+            >
+              <input required type="email" placeholder="Enter your email address" className="bg-gray-800 text-white px-4 py-2 w-full rounded-l outline-none focus:ring-1 focus:ring-[var(--color-accent-red)]" />
+              <button type="submit" className="bg-[var(--color-accent-red)] px-4 py-2 rounded-r font-bold hover:bg-red-700 transition-colors">Subscribe</button>
+            </form>
           </div>
 
         </div>

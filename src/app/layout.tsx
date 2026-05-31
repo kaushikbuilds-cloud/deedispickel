@@ -26,6 +26,7 @@ export const metadata: Metadata = {
 import { CartProvider } from "@/context/CartContext";
 import CartDrawer from "@/components/CartDrawer";
 import ToastNotification from "@/components/ToastNotification";
+import LoaderProvider from "@/components/LoaderProvider";
 
 export default function RootLayout({
   children,
@@ -36,9 +37,11 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${playfair.variable} ${montserrat.variable} bg-white text-[#333333] antialiased`}>
       <body className="font-sans min-h-screen selection:bg-[#d32f2f] selection:text-white">
         <CartProvider>
-          <SmoothScroll>{children}</SmoothScroll>
-          <CartDrawer />
-          <ToastNotification />
+          <LoaderProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+            <CartDrawer />
+            <ToastNotification />
+          </LoaderProvider>
         </CartProvider>
       </body>
     </html>
