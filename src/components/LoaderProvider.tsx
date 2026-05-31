@@ -1,16 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import CinematicLoader from "./CinematicLoader";
 
 export default function LoaderProvider({ children }: { children: React.ReactNode }) {
-  // Always show on fresh page load (not session-gated)
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // Only show loader once per browser session
+    const seen = sessionStorage.getItem("deedis_loader_seen");
+    if (!seen) {
+      setLoading(true);
+    }
+  }, []);
+
+  const handleComplete = () => {
+    setLoading(false);
+    sessionStorage.setItem("deedis_loader_seen", "1");
+  };
 
   return (
     <>
-      <AnimatePresence>{loading && <CinematicLoader onComplete={() => setLoading(false)} />}</AnimatePresence>
+      <AnimatePresence>{loading && <CinematicLoader onComplete={handleComplete} />}</AnimatePresence>
       {children}
     </>
   );

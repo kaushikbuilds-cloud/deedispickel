@@ -1,24 +1,31 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CinematicLoader({ onComplete }: { onComplete: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
 
   useEffect(() => {
+    // Pick video based on screen width
+    const isMobile = window.innerWidth < 768;
+    setVideoSrc(isMobile ? "/loadingmobile.mp4" : "/loading.mp4");
+  }, []);
+
+  useEffect(() => {
+    if (!videoSrc) return;
     document.body.style.overflow = "hidden";
 
     const video = videoRef.current;
     if (!video) return;
 
-    // When video ends, fade out
     const handleEnded = () => {
       document.body.style.overflow = "auto";
       onComplete();
     };
 
-    // Fallback: if video fails to load/play, dismiss after 5s
+    // Fallback in case video doesn't fire ended event
     const fallback = setTimeout(() => {
       document.body.style.overflow = "auto";
       onComplete();
@@ -31,7 +38,10 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
       clearTimeout(fallback);
       document.body.style.overflow = "auto";
     };
-  }, [onComplete]);
+  }, [videoSrc, onComplete]);
+
+  // Don't render until we know which video to show
+  if (!videoSrc) return null;
 
   return (
     <motion.div
@@ -43,7 +53,7 @@ export default function CinematicLoader({ onComplete }: { onComplete: () => void
     >
       <video
         ref={videoRef}
-        src="/loading.mp4"
+        src={videoSrc}
         autoPlay
         muted
         playsInline
