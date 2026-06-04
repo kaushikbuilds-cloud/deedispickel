@@ -1,13 +1,15 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { X, Minus, Plus, ShoppingBag, MessageCircle } from "lucide-react";
+import { X, Minus, Plus, ShoppingBag, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function CartDrawer() {
   const { cart, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const router = useRouter();
 
   // Prevent background scrolling when drawer is open
   useEffect(() => {
@@ -128,19 +130,22 @@ export default function CartDrawer() {
               <span className="text-gray-500 font-medium">Subtotal</span>
               <span className="font-bold text-[var(--color-text)]">₹{cartTotal.toFixed(2)}</span>
             </div>
-            <div className="flex justify-between items-center mb-6 text-sm">
-              <span className="text-gray-500">Shipping</span>
-              <span className="text-gray-500 text-right">Calculated at Checkout</span>
+            <div className="flex justify-between items-center mb-1 text-sm">
+              <span className="text-gray-500">Delivery</span>
+              <span className="text-gray-500 text-right">Added after confirmation</span>
             </div>
-            <button 
+            <p className="mb-5 text-xs text-gray-400">
+              Add your delivery details on the next step to place your order.
+            </p>
+            <button
               onClick={() => {
-                const message = cart.map(item => `${item.quantity}x ${item.name}`).join('%0A');
-                window.open(`https://wa.me/916383609055?text=Hello! I would like to place an order for:%0A${message}%0A%0ATotal: ₹${cartTotal.toFixed(2)}`, '_blank');
                 setIsCartOpen(false);
+                router.push("/checkout");
               }}
-              className="w-full bg-[var(--color-accent-red)] text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 hover:bg-red-800 hover:shadow-lg transition-all duration-300"
+              className="group w-full bg-gradient-to-r from-[var(--color-accent-red)] to-[var(--color-spice-dark)] text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-2 shadow-glow-red hover:-translate-y-0.5 transition-all duration-300"
             >
-              Order via WhatsApp
+              Proceed to Checkout
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         )}
