@@ -36,6 +36,7 @@ import { CartProvider } from "@/context/CartContext";
 import CartDrawer from "@/components/CartDrawer";
 import ToastNotification from "@/components/ToastNotification";
 import LoaderProvider from "@/components/LoaderProvider";
+import FlyToCart from "@/components/FlyToCart";
 
 export default function RootLayout({
   children,
@@ -49,6 +50,7 @@ export default function RootLayout({
           <LoaderProvider>
             <SmoothScroll>{children}</SmoothScroll>
             <CartDrawer />
+            <FlyToCart />
             <ToastNotification />
           </LoaderProvider>
         </CartProvider>

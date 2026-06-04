@@ -5,13 +5,13 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { MessageCircle, ShieldCheck, Truck } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { MessageCircle, ShieldCheck, Truck, Check } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function CheckoutPage() {
   const { cart, cartTotal, clearCart } = useCart();
   const [mounted, setMounted] = useState(false);
-  const router = useRouter();
+  const [placing, setPlacing] = useState(false);
   
   const [formData, setFormData] = useState({
     firstName: "",
@@ -54,20 +54,23 @@ export default function CheckoutPage() {
     message += `Please confirm my order and share the payment details.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappNumber = "916383609055"; 
-    
-    // Open WhatsApp in a new tab
-    window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
-    
-    // Clear the cart and redirect to home page
-    clearCart();
-    router.push("/");
+    const whatsappNumber = "916383609055";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    // Play the success animation, then hand off to WhatsApp.
+    setPlacing(true);
+    setTimeout(() => {
+      clearCart();
+      // Same-tab navigation avoids pop-up blockers after the delay.
+      window.location.href = whatsappUrl;
+    }, 2300);
   };
 
   if (!mounted) return null;
 
   return (
     <main className="bg-[var(--color-surface)] min-h-screen">
+      <AnimatePresence>{placing && <OrderPlacedOverlay />}</AnimatePresence>
       <Header />
       
       <div className="container mx-auto px-4 py-12 md:py-16 max-w-6xl">
@@ -143,13 +146,13 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <button 
+                <button
                   type="submit"
-                  disabled={cart.length === 0}
+                  disabled={cart.length === 0 || placing}
                   className="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3 hover:bg-[#128C7E] hover:shadow-lg transition-all duration-300 mt-8 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <MessageCircle className="w-6 h-6" />
-                  Place Order via WhatsApp
+                  {placing ? "Placing your order…" : "Place Order via WhatsApp"}
                 </button>
                 <div className="flex items-center justify-center gap-2 text-sm text-gray-500 mt-4">
                   <ShieldCheck className="w-4 h-4" />
@@ -219,5 +222,80 @@ export default function CheckoutPage() {
 
       <Footer />
     </main>
+  );
+}
+
+const confettiColors = ["#d32f2f", "#e0962a", "#2e7d32", "#b4231a", "#f59e0b", "#7d160f"];
+
+function OrderPlacedOverlay() {
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100000] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[var(--color-secondary)] to-[var(--color-surface)] px-6 text-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* Confetti */}
+      {Array.from({ length: 18 }).map((_, i) => {
+        const left = 50 + (Math.random() * 64 - 32);
+        const size = 7 + Math.random() * 9;
+        return (
+          <motion.span
+            key={i}
+            className="absolute rounded-[2px]"
+            style={{ left: `${left}%`, top: "44%", width: size, height: size * 1.5, background: confettiColors[i % confettiColors.length] }}
+            initial={{ y: 0, opacity: 0, rotate: 0 }}
+            animate={{ y: [0, -120 - Math.random() * 90, 280], opacity: [0, 1, 0], rotate: Math.random() * 420 - 210 }}
+            transition={{ duration: 1.7, delay: Math.random() * 0.25, ease: "easeOut" }}
+          />
+        );
+      })}
+
+      {/* Check badge */}
+      <motion.div
+        initial={{ scale: 0, rotate: -25 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.1 }}
+        className="relative z-10 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-accent-green)] to-emerald-700 shadow-warm-lg"
+      >
+        <span className="absolute inset-0 -z-10 rounded-full bg-[var(--color-accent-green)]/30 blur-2xl" />
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.35, type: "spring", stiffness: 300, damping: 13 }}
+        >
+          <Check className="h-14 w-14 text-white" strokeWidth={3} />
+        </motion.div>
+      </motion.div>
+
+      <motion.h2
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="relative z-10 mt-8 font-serif text-4xl font-black text-[var(--color-text)] md:text-5xl"
+      >
+        Order Placed!
+      </motion.h2>
+      <motion.p
+        initial={{ y: 16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.42 }}
+        className="relative z-10 mt-3 max-w-sm text-[var(--color-muted)]"
+      >
+        Taking you to WhatsApp to confirm your order and delivery charge…
+      </motion.p>
+
+      <div className="relative z-10 mt-7 flex gap-2">
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="h-2.5 w-2.5 rounded-full bg-[var(--color-accent-red)]"
+            animate={{ y: [0, -8, 0], opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 0.9, repeat: Infinity, delay: i * 0.15 }}
+          />
+        ))}
+      </div>
+    </motion.div>
   );
 }

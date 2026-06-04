@@ -53,7 +53,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
               <span className="absolute right-5 top-5 flex items-center gap-1 rounded-full bg-white/90 px-3 py-1.5 text-sm font-bold text-[var(--color-text)] shadow-sm backdrop-blur">
                 <Star className="h-4 w-4 fill-[var(--color-accent-yellow)] text-[var(--color-accent-yellow)]" /> 4.9
               </span>
-              <div className="relative h-full w-full drop-shadow-2xl">
+              <div id="pdp-image" className="relative h-full w-full drop-shadow-2xl">
                 <Image src={product.image} alt={product.name} fill className="object-contain" priority />
               </div>
             </div>

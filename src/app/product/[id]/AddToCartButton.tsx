@@ -6,13 +6,15 @@ import { Product } from "@/data/products";
 import { useState } from "react";
 
 export default function AddToCartButton({ product }: { product: Product }) {
-  const { addToCart, setIsCartOpen } = useCart();
+  const { addToCart, setIsCartOpen, flyToCart } = useCart();
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [added, setAdded] = useState(false);
 
   const variant = product.variants[selectedVariant];
 
   const handleAdd = () => {
+    const img = document.getElementById("pdp-image");
+    if (img) flyToCart(product.image, img.getBoundingClientRect());
     addToCart({ ...product, price: variant.price, weight: variant.weight });
     setAdded(true);
     setTimeout(() => setAdded(false), 1600);

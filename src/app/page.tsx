@@ -14,7 +14,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative w-full overflow-hidden bg-[var(--color-primary)]">
+    <main className="relative w-full overflow-x-clip bg-[var(--color-primary)]">
       <AnnouncementBar />
       <Header />
       <HeroSection />

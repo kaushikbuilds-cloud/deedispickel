@@ -11,6 +11,15 @@ export interface CartItem {
   weight: string;
 }
 
+export interface FlyPayload {
+  src: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  key: number;
+}
+
 interface CartContextType {
   cart: CartItem[];
   addToCart: (item: Omit<CartItem, "quantity">) => void;
@@ -23,6 +32,9 @@ interface CartContextType {
   showToast: boolean;
   toastMessage: string;
   setShowToast: (show: boolean) => void;
+  fly: FlyPayload | null;
+  flyToCart: (src: string, rect: DOMRect) => void;
+  clearFly: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -33,6 +45,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const [fly, setFly] = useState<FlyPayload | null>(null);
+
+  const flyToCart = (src: string, rect: DOMRect) => {
+    // Respect reduced-motion: skip the flying animation.
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    setFly({ src, x: rect.left, y: rect.top, w: rect.width, h: rect.height, key: Date.now() });
+  };
+
+  const clearFly = () => setFly(null);
 
   // Load from local storage on mount
   useEffect(() => {
@@ -105,6 +128,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         showToast,
         toastMessage,
         setShowToast,
+        fly,
+        flyToCart,
+        clearFly,
       }}
     >
       {children}
