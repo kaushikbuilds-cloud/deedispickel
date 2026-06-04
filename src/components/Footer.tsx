@@ -8,7 +8,7 @@ import { MapPin, Phone, Mail, Send, Leaf, ShieldCheck, Truck, Globe2 } from "luc
 const trust = [
   { icon: Leaf, label: "100% Natural" },
   { icon: ShieldCheck, label: "No Preservatives" },
-  { icon: Truck, label: "Free Shipping ₹500+" },
+  { icon: Truck, label: "Fast Dispatch" },
   { icon: Globe2, label: "Ships Worldwide" },
 ];
 

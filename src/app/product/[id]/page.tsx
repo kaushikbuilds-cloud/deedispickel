@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             {/* Shipping note */}
             <div className="mt-6 flex items-center gap-3 rounded-2xl bg-[var(--color-secondary)] px-5 py-4 text-sm text-[var(--color-text)]">
               <Truck className="h-5 w-5 shrink-0 text-[var(--color-accent-red)]" />
-              <span>Free shipping on orders above ₹500 · Dispatched within 1–2 days</span>
+              <span>Shipping calculated at checkout · Dispatched within 1–2 days</span>
             </div>
 
             {/* Accordions */}

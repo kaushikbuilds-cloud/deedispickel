@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Truck, Leaf, Globe2, Sparkles } from "lucide-react";
 
 const messages = [
-  { icon: Truck, text: "Free shipping on orders above ₹500" },
+  { icon: Truck, text: "Fast dispatch within 1–2 business days" },
   { icon: Leaf, text: "100% natural · No preservatives · No added colour" },
   { icon: Globe2, text: "We ship worldwide from the Nilgiris, Ooty" },
   { icon: Sparkles, text: "Handcrafted in small batches — tradition in every jar" },
