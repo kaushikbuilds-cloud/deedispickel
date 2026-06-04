@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { MessageCircle, ShieldCheck } from "lucide-react";
+import { MessageCircle, ShieldCheck, Truck } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
@@ -192,13 +192,22 @@ export default function CheckoutPage() {
                       <span className="font-bold">₹{cartTotal.toFixed(2)}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Shipping</span>
-                      <span className="text-gray-500">To be calculated</span>
+                      <span className="text-gray-600">Delivery</span>
+                      <span className="font-semibold text-[var(--color-text)]">Added after confirmation</span>
                     </div>
                     <div className="border-t border-gray-200 pt-3 flex justify-between items-end">
                       <span className="font-bold text-lg">Total</span>
                       <span className="font-extrabold text-2xl text-[var(--color-accent-red)]">₹{cartTotal.toFixed(2)}</span>
                     </div>
+                  </div>
+
+                  {/* Delivery charge note */}
+                  <div className="mt-5 flex items-start gap-3 rounded-2xl border border-[var(--color-accent-yellow)]/30 bg-amber-50 p-4">
+                    <Truck className="mt-0.5 h-5 w-5 shrink-0 text-[var(--color-accent-yellow)]" />
+                    <p className="text-sm leading-relaxed text-[var(--color-text)]">
+                      <span className="font-bold">Delivery charges are not included.</span> They depend on your
+                      location and will be added after you confirm your order on WhatsApp.
+                    </p>
                   </div>
                 </>
               )}
