@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -16,52 +18,134 @@ export default function Header() {
   const { cart, setIsCartOpen } = useCart();
   const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname === href;
 
   return (
     <>
-      <header className="bg-white/80 backdrop-blur-lg border-b border-[var(--color-border)] sticky top-0 z-50 shadow-[0_4px_30px_rgba(0,0,0,0.05)] transition-all duration-300">
-        <div className="container mx-auto px-4 md:px-8 py-5 flex items-center justify-between">
-
+      <header
+        className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+          scrolled
+            ? "border-[var(--color-border)] bg-[var(--color-primary)]/85 shadow-[0_8px_30px_rgba(124,22,15,0.07)] backdrop-blur-xl"
+            : "border-transparent bg-[var(--color-primary)]/60 backdrop-blur-md"
+        }`}
+      >
+        <div
+          className={`container mx-auto flex items-center justify-between px-4 transition-all duration-300 md:px-8 ${
+            scrolled ? "py-3" : "py-4 md:py-5"
+          }`}
+        >
           {/* Hamburger - Mobile Left */}
           <button
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-100 transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-[var(--color-secondary)] md:hidden"
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
-            <Menu className="w-6 h-6 text-[var(--color-text)]" />
+            <Menu className="h-6 w-6 text-[var(--color-text)]" />
           </button>
 
-          {/* Empty spacer for desktop */}
-          <div className="hidden md:block w-24" />
+          {/* Left nav - Desktop */}
+          <nav className="hidden items-center gap-7 md:flex">
+            {navLinks.slice(0, 2).map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`group relative text-sm font-semibold tracking-wide transition-colors ${
+                  isActive(link.href)
+                    ? "text-[var(--color-accent-red)]"
+                    : "text-[var(--color-text)] hover:text-[var(--color-accent-red)]"
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[var(--color-accent-red)] transition-all duration-300 ${
+                    isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
+            ))}
+          </nav>
 
           {/* Logo - Center */}
-          <div className="flex-1 md:flex-1 text-center md:absolute md:left-1/2 md:-translate-x-1/2">
-            <a href="/" aria-label="Deedis - Go to homepage" className="inline-flex items-center justify-center">
+          <div className="flex-1 text-center md:absolute md:left-1/2 md:flex-none md:-translate-x-1/2">
+            <Link href="/" aria-label="Deedis - Go to homepage" className="inline-flex items-center justify-center">
               <Image
                 src="/pickellogo.png"
                 alt="Deedis"
                 width={120}
                 height={48}
-                className="h-10 md:h-12 w-auto object-contain"
+                className={`w-auto object-contain transition-all duration-300 ${
+                  scrolled ? "h-9 md:h-10" : "h-10 md:h-12"
+                }`}
                 priority
               />
-            </a>
+            </Link>
           </div>
 
-          {/* Cart - Right */}
-          <div className="flex items-center justify-end text-[var(--color-text)]">
+          {/* Right nav + cart - Desktop */}
+          <div className="flex items-center justify-end gap-7">
+            <nav className="hidden items-center gap-7 md:flex">
+              {navLinks.slice(2).map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className={`group relative text-sm font-semibold tracking-wide transition-colors ${
+                    isActive(link.href)
+                      ? "text-[var(--color-accent-red)]"
+                      : "text-[var(--color-text)] hover:text-[var(--color-accent-red)]"
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    className={`absolute -bottom-1.5 left-0 h-0.5 rounded-full bg-[var(--color-accent-red)] transition-all duration-300 ${
+                      isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              ))}
+
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
                 setIsCartOpen(true);
               }}
-              className="hover:text-[var(--color-accent-red)] transition-colors relative flex items-center gap-2 bg-gray-50 px-4 py-2 rounded-full border border-gray-100 hover:border-red-100 shadow-sm"
+              className="relative flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/70 px-4 py-2 text-[var(--color-text)] shadow-sm transition-all hover:border-red-200 hover:text-[var(--color-accent-red)] hover:shadow-md"
+              aria-label="Open cart"
             >
-              <ShoppingBag className="w-5 h-5 md:w-6 md:h-6" />
-              <span className="font-bold text-sm hidden md:inline-block">Cart</span>
+              <ShoppingBag className="h-5 w-5 md:h-[22px] md:w-[22px]" />
+              <span className="hidden text-sm font-bold md:inline-block">Cart</span>
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-[var(--color-accent-yellow)] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-in zoom-in shadow-md">
+                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md animate-in zoom-in">
+                  {itemCount}
+                </span>
+              )}
+            </button>
+            </nav>
+
+            {/* Cart - Mobile only (right nav is hidden on mobile) */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setIsCartOpen(true);
+              }}
+              className="relative flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/70 px-3 py-2 text-[var(--color-text)] shadow-sm transition-all hover:text-[var(--color-accent-red)] md:hidden"
+              aria-label="Open cart"
+            >
+              <ShoppingBag className="h-5 w-5" />
+              {itemCount > 0 && (
+                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md animate-in zoom-in">
                   {itemCount}
                 </span>
               )}
@@ -73,17 +157,13 @@ export default function Header() {
       {/* Mobile Drawer */}
       {menuOpen && (
         <div className="fixed inset-0 z-[60] flex md:hidden">
-          {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMenuOpen(false)}
           />
-
-          {/* Slide-in panel */}
-          <div className="relative w-72 bg-white h-full flex flex-col shadow-2xl animate-in slide-in-from-left duration-300">
-            {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--color-border)]">
-              <a href="/" aria-label="Deedis - Go to homepage" onClick={() => setMenuOpen(false)} className="inline-flex items-center">
+          <div className="relative flex h-full w-72 flex-col bg-[var(--color-primary)] shadow-2xl animate-in slide-in-from-left duration-300">
+            <div className="flex items-center justify-between border-b border-[var(--color-border)] px-6 py-5">
+              <Link href="/" aria-label="Deedis - Go to homepage" onClick={() => setMenuOpen(false)} className="inline-flex items-center">
                 <Image
                   src="/pickellogo.png"
                   alt="Deedis"
@@ -91,37 +171,35 @@ export default function Header() {
                   height={40}
                   className="h-9 w-auto object-contain"
                 />
-              </a>
+              </Link>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+                className="flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-[var(--color-secondary)]"
                 aria-label="Close menu"
               >
-                <X className="w-5 h-5 text-gray-500" />
+                <X className="h-5 w-5 text-gray-500" />
               </button>
             </div>
 
-            {/* Nav Links */}
-            <nav className="flex flex-col px-4 py-6 gap-1">
+            <nav className="flex flex-col gap-1 px-4 py-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-lg font-semibold text-[var(--color-text)] px-4 py-3 rounded-xl hover:bg-red-50 hover:text-[var(--color-accent-red)] transition-colors"
+                  className="rounded-xl px-4 py-3 text-lg font-semibold text-[var(--color-text)] transition-colors hover:bg-red-50 hover:text-[var(--color-accent-red)]"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </nav>
 
-            {/* Cart CTA */}
             <div className="mt-auto px-6 pb-8">
               <button
                 onClick={() => { setMenuOpen(false); setIsCartOpen(true); }}
-                className="w-full bg-[var(--color-accent-red)] text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:bg-red-700 transition-colors"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent-red)] py-3 font-bold text-white shadow-lg transition-colors hover:bg-red-700"
               >
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="h-5 w-5" />
                 View Cart {itemCount > 0 && `(${itemCount})`}
               </button>
             </div>

@@ -8,11 +8,18 @@ export default function MysteryBox() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="py-20 bg-[#fffbf2] border-t border-[var(--color-border)] relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-[var(--color-secondary)] border-t border-[var(--color-border)] relative overflow-hidden">
       {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(var(--color-accent-red)_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-      
-      <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center min-h-[350px]">
+      <div className="absolute inset-0 opacity-[0.04] dot-grid"></div>
+
+      <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center">
+        <div className="mb-10 text-center">
+          <span className="eyebrow eyebrow-center justify-center">A little surprise</span>
+          <h2 className="mt-4 font-serif text-3xl md:text-5xl font-bold tracking-tight text-[var(--color-text)]">
+            What's <span className="text-gradient-spice">coming next?</span>
+          </h2>
+        </div>
+        <div className="flex min-h-[320px] flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           {!isOpen ? (
             <motion.div
@@ -75,6 +82,7 @@ export default function MysteryBox() {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </div>
     </section>
   );

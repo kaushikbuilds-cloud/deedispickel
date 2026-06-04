@@ -1,19 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #ffffff;
-  --color-secondary: #fefcf3;
-  --color-surface: #fffdf8;
-  --color-accent-red: #d32f2f;
-  --color-accent-yellow: #f59e0b;
-  --color-accent-green: #2e7d32;
-  --color-text: #2c2522;
-  --color-muted: #756a64;
-  --color-border: #f0e6d2;
+  /* ---- Surfaces (warm paper tones) ---- */
+  --color-primary: #fffdfa;       /* page base — barely-there warm white */
+  --color-secondary: #fbf4e6;     /* cream panels */
+  --color-surface: #fdf8ef;       /* section surface */
+  --color-cream: #f6ead3;         /* deeper cream */
+  --color-ink: #1c130d;           /* warm near-black for premium dark bands */
+  --color-ink-soft: #2a1d13;      /* slightly lifted ink */
+
+  /* ---- Brand accents ---- */
+  --color-accent-red: #d32f2f;    /* primary brand red (kept) */
+  --color-spice: #b4231a;         /* deep chilli red */
+  --color-spice-dark: #7d160f;    /* maroon */
+  --color-accent-yellow: #f59e0b; /* amber (kept) */
+  --color-saffron: #e0962a;       /* turmeric/saffron */
+  --color-gold: #c08a2d;          /* premium gold (use sparingly) */
+  --color-accent-green: #2e7d32;  /* leaf green (kept) */
+
+  /* ---- Text ---- */
+  --color-text: #2c2522;          /* kept */
+  --color-muted: #756a64;         /* kept */
+  --color-border: #efe2c9;        /* warm hairline */
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
   --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Easing ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -24,20 +43,197 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
+/* Nicer, on-brand focus ring */
+*:focus-visible {
+  outline: 2px solid var(--color-accent-red);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Custom warm scrollbar (desktop) */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-secondary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #d8c39a;
+    border-radius: 99px;
+    border: 2px solid var(--color-secondary);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-saffron);
+  }
+}
+
+/* Hide scrollbar utility (kept) */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
-/* Hide scrollbar for IE and Edge */
 .no-scrollbar {
   -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer utilities {
+  /* ---- Shadows (kept + premium) ---- */
   .card-shadow {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   .card-hover-shadow {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
+  .shadow-warm {
+    box-shadow: 0 18px 40px -18px rgba(124, 22, 15, 0.28), 0 6px 14px -8px rgba(124, 22, 15, 0.18);
+  }
+  .shadow-warm-lg {
+    box-shadow: 0 40px 80px -30px rgba(124, 22, 15, 0.35), 0 12px 24px -12px rgba(44, 37, 34, 0.18);
+  }
+  .shadow-glow-red {
+    box-shadow: 0 10px 35px rgba(211, 47, 47, 0.35);
+  }
+
+  /* ---- Eyebrow label ---- */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-spice);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 2px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, var(--color-saffron), var(--color-spice));
+  }
+  .eyebrow-center::before {
+    display: none;
+  }
+
+  /* ---- Gradient text ---- */
+  .text-gradient-spice {
+    background: linear-gradient(100deg, var(--color-spice) 0%, var(--color-accent-red) 45%, var(--color-saffron) 110%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(100deg, #e9b949 0%, var(--color-gold) 55%, #8a5a16 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---- Premium buttons ---- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(120deg, var(--color-accent-red), var(--color-spice-dark));
+    box-shadow: 0 10px 25px -8px rgba(180, 35, 26, 0.6);
+    transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s var(--ease-out-expo);
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -10px rgba(180, 35, 26, 0.7);
+  }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s var(--ease-out-expo);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-accent-red);
+    color: var(--color-accent-red);
+    transform: translateY(-3px);
+  }
+
+  /* ---- Pills / chips ---- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border: 1px solid var(--color-border);
+    background: #fff;
+    color: var(--color-text);
+  }
+
+  /* ---- Warm glass card ---- */
+  .glass-card {
+    background: rgba(255, 253, 250, 0.7);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(239, 226, 201, 0.9);
+  }
+
+  /* ---- Textures ---- */
+  .dot-grid {
+    background-image: radial-gradient(var(--color-spice) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .paper-texture {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  }
+
+  /* ---- Animations ---- */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-slow {
+    animation: float 9s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: spin-slow 26s linear infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-spin-slow {
+    animation: none;
+  }
+  html { scroll-behavior: auto; }
 }

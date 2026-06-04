@@ -1,88 +1,94 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const reviews = [
-  { name: "Priya S.", country: "USA 🇺🇸", review: "The closest thing to my grandmother's pickle. Absolutely phenomenal quality and packaging." },
-  { name: "Rahul M.", country: "UK 🇬🇧", review: "Worth every penny. The gongura pickle is incredibly authentic. Shipping was surprisingly fast." },
-  { name: "Anita K.", country: "Australia 🇦🇺", review: "Premium experience from unboxing to tasting. The garlic pickle is out of this world!" },
+  { name: "Priya S.", country: "USA 🇺🇸", review: "The closest thing to my grandmother's mango pickle. Absolutely phenomenal quality and packaging." },
+  { name: "Rahul M.", country: "UK 🇬🇧", review: "Worth every penny. The Vadu mango pickle is incredibly authentic, and shipping was surprisingly fast." },
+  { name: "Anita K.", country: "Australia 🇦🇺", review: "A premium experience from unboxing to tasting. The Ooty garlic pickle is out of this world!" },
   { name: "Vikram R.", country: "Canada 🇨🇦", review: "You can taste the purity of the gingelly oil. It's a luxury product that delivers on its promise." },
 ];
 
 export default function CustomerReviews() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % reviews.length);
-    }, 5000);
+    const timer = setInterval(() => setIndex((p) => (p + 1) % reviews.length), 5000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <section className="relative py-24 md:py-48 bg-[var(--color-surface)] overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row gap-16 items-center">
-          
-          <div className="w-full md:w-5/12">
-            <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl text-[var(--color-text)] mb-6 leading-none">
-              LOVED <span className="font-display italic text-stroke text-[var(--color-accent)]">GLOBALLY.</span>
-            </h2>
-            <div className="flex items-center gap-2 mb-6">
+    <section className="relative overflow-hidden bg-[var(--color-ink)] py-20 text-white md:py-28">
+      <div className="pointer-events-none absolute -left-20 top-0 h-96 w-96 rounded-full bg-[var(--color-spice)]/20 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 rounded-full bg-[var(--color-saffron)]/10 blur-[120px]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.04] dot-grid" />
+
+      <div className="container relative z-10 mx-auto grid grid-cols-1 items-center gap-12 px-4 md:px-8 lg:grid-cols-12 lg:gap-16">
+        {/* Left summary */}
+        <div className="lg:col-span-5">
+          <span className="eyebrow !text-[var(--color-accent-yellow)]">Loved Globally</span>
+          <h2 className="mt-4 font-serif text-4xl font-bold leading-tight tracking-tight md:text-6xl">
+            Don't take our
+            <br />
+            <span className="text-gradient-gold">word for it.</span>
+          </h2>
+          <div className="mt-7 flex items-center gap-4">
+            <div className="flex items-center gap-1 text-[var(--color-accent-yellow)]">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-[var(--color-accent)] fill-[var(--color-accent)]" />
+                <Star key={i} className="h-5 w-5 fill-current" />
               ))}
             </div>
-            <p className="text-[var(--color-text)] font-sans text-3xl font-bold mb-4">5,000+ Happy Customers</p>
-            <p className="text-[var(--color-muted)] font-sans text-lg font-light">Delivering authentic South Indian flavors to doorsteps worldwide.</p>
+            <p className="text-2xl font-bold">4.9<span className="text-base font-normal text-white/50">/5</span></p>
           </div>
+          <p className="mt-3 text-lg text-white/60">
+            Delivering authentic South Indian flavour to <span className="font-semibold text-white">5,000+</span> doorsteps worldwide.
+          </p>
+        </div>
 
-          <div className="w-full md:w-7/12 relative h-[350px]">
-            {reviews.map((review, i) => (
+        {/* Right carousel */}
+        <div className="lg:col-span-7">
+          <div className="relative min-h-[260px] sm:min-h-[230px]">
+            <AnimatePresence mode="wait">
               <motion.div
-                key={i}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ 
-                  opacity: i === currentIndex ? 1 : 0, 
-                  x: i === currentIndex ? 0 : (i < currentIndex ? -100 : 100),
-                  zIndex: i === currentIndex ? 10 : 0,
-                  pointerEvents: i === currentIndex ? "auto" : "none"
-                }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0"
+                key={index}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -24 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="glass-card !border-white/10 !bg-white/[0.04] rounded-[2rem] p-8 md:p-12"
               >
-                <div className="glass-card p-10 md:p-14 rounded-[2.5rem] h-full flex flex-col justify-center border border-[var(--color-accent)]/10 bg-[#020502]/40">
-                  <div className="flex gap-1 mb-8">
-                    {[...Array(5)].map((_, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={i === currentIndex ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0 }}
-                        transition={{ delay: idx * 0.1, duration: 0.3 }}
-                      >
-                        <Star className="w-5 h-5 text-[var(--color-accent)] fill-[var(--color-accent)]" />
-                      </motion.div>
-                    ))}
+                <Quote className="mb-6 h-10 w-10 text-[var(--color-accent-yellow)]/50" />
+                <p className="font-serif text-2xl italic leading-snug text-white md:text-3xl">
+                  “{reviews[index].review}”
+                </p>
+                <div className="mt-8 flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-[var(--color-accent-yellow)]/40 bg-white/5 font-display text-xl font-bold text-[var(--color-accent-yellow)]">
+                    {reviews[index].name[0]}
                   </div>
-                  <p className="font-serif text-2xl md:text-4xl text-[var(--color-text)] mb-8 leading-tight italic">
-                    "{review.review}"
-                  </p>
-                  <div className="flex items-center gap-4 mt-auto">
-                    <div className="w-12 h-12 rounded-full bg-[var(--color-surface)] flex items-center justify-center text-[var(--color-accent)] font-display text-xl font-bold border border-[var(--color-accent)]/30">
-                      {review.name[0]}
-                    </div>
-                    <div>
-                      <h4 className="font-sans font-bold text-[var(--color-text)] tracking-wider uppercase text-sm">{review.name}</h4>
-                      <p className="font-sans text-[var(--color-muted)] text-sm">{review.country}</p>
-                    </div>
+                  <div>
+                    <h4 className="text-sm font-bold uppercase tracking-wider">{reviews[index].name}</h4>
+                    <p className="text-sm text-white/50">{reviews[index].country}</p>
                   </div>
                 </div>
               </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Dots */}
+          <div className="mt-7 flex gap-2.5">
+            {reviews.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setIndex(i)}
+                aria-label={`Show review ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === index ? "w-8 bg-[var(--color-accent-yellow)]" : "w-2 bg-white/25 hover:bg-white/50"
+                }`}
+              />
             ))}
           </div>
-          
         </div>
       </div>
     </section>

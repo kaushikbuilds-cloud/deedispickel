@@ -1,9 +1,15 @@
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
-import HeroSlider from "@/components/HeroSlider";
+import HeroSection from "@/components/HeroSection";
+import TrustBar from "@/components/TrustBar";
 import ProductGrid from "@/components/ProductGrid";
+import Marquee from "@/components/Marquee";
+import WhyDeedis from "@/components/WhyDeedis";
 import StoryBanner from "@/components/StoryBanner";
+import IngredientsSection from "@/components/IngredientsSection";
+import CustomerReviews from "@/components/CustomerReviews";
 import MysteryBox from "@/components/MysteryBox";
+import NewsletterCTA from "@/components/NewsletterCTA";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,10 +17,16 @@ export default function Home() {
     <main className="relative w-full overflow-hidden bg-[var(--color-primary)]">
       <AnnouncementBar />
       <Header />
-      <HeroSlider />
+      <HeroSection />
+      <TrustBar />
       <ProductGrid />
+      <Marquee />
+      <WhyDeedis />
       <StoryBanner />
+      <IngredientsSection />
+      <CustomerReviews />
       <MysteryBox />
+      <NewsletterCTA />
       <Footer />
     </main>
   );

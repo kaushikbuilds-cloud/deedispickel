@@ -1,39 +1,62 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Truck } from "lucide-react";
+
+export const metadata = {
+  title: "Shipping Policy | Deedis",
+  description: "How and when your handcrafted Deedis pickles reach you, in India and worldwide.",
+};
+
+const sections = [
+  {
+    title: "1. Processing Time",
+    body: "All orders are processed within 1 to 2 business days (excluding weekends and holidays) after receiving your order confirmation. You'll receive another notification once your order has shipped.",
+  },
+  {
+    title: "2. Domestic Shipping Rates & Estimates",
+    body: "Shipping charges are calculated and displayed at checkout. Standard delivery within India usually takes 3 to 7 business days depending on your location.",
+  },
+  {
+    title: "3. International Shipping",
+    body: "We ship to select countries worldwide. International rates and delivery estimates vary by destination and are calculated at checkout or shared via WhatsApp before confirmation. Orders may be subject to import duties and taxes once they reach the destination country.",
+  },
+  {
+    title: "4. Tracking Your Order",
+    body: "Once shipped, you'll receive an email or WhatsApp message with a tracking number. You can also use the \"Track Order\" link in our website footer (powered by Shiprocket).",
+  },
+];
 
 export default function ShippingPolicyPage() {
   return (
-    <main className="bg-[var(--color-surface)] min-h-screen">
+    <main className="min-h-screen bg-[var(--color-primary)]">
       <Header />
-      <div className="container mx-auto px-4 py-20 max-w-4xl">
-        <h1 className="font-serif text-4xl md:text-5xl font-bold text-[var(--color-accent-red)] mb-12 text-center">Shipping Policy</h1>
-        
-        <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-[var(--color-border)] prose prose-lg max-w-none text-gray-700">
-          <p>
-            At Deedis, we partner with reliable shipping providers like <strong>Shiprocket</strong> to ensure your handcrafted pickles reach you fresh and safe.
-          </p>
 
-          <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">1. Processing Time</h3>
-          <p>
-            All orders are processed within 1 to 2 business days (excluding weekends and holidays) after receiving your order confirmation email. You will receive another notification when your order has shipped.
-          </p>
-
-          <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">2. Domestic Shipping Rates and Estimates</h3>
-          <p>
-            Shipping charges for your order will be calculated and displayed at checkout. Standard delivery within India usually takes 3 to 7 business days depending on your location.
-          </p>
-
-          <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">3. International Shipping</h3>
-          <p>
-            We offer international shipping to select countries. International shipping rates and delivery estimates vary significantly by destination and will be calculated during checkout or communicated via WhatsApp before order confirmation. Please note that your order may be subject to import duties and taxes, which are incurred once a shipment reaches your destination country.
-          </p>
-
-          <h3 className="font-serif text-xl font-bold text-[var(--color-text)] mt-8 mb-4">4. How do I check the status of my order?</h3>
-          <p>
-            When your order has shipped, you will receive an email or WhatsApp message from us which will include a tracking number you can use to check its status. You can also use the <strong>"Track Order"</strong> link in our website footer.
+      <section className="relative overflow-hidden bg-gradient-to-b from-[var(--color-secondary)] to-[var(--color-primary)] py-16 md:py-20">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.04] dot-grid" />
+        <div className="container relative z-10 mx-auto max-w-3xl px-4 text-center md:px-8">
+          <span className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent-red)] text-white shadow-glow-red">
+            <Truck className="h-7 w-7" />
+          </span>
+          <h1 className="font-serif text-4xl font-bold tracking-tight text-[var(--color-text)] md:text-6xl">
+            Shipping <span className="text-gradient-spice">Policy</span>
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-[var(--color-muted)]">
+            We partner with reliable providers like Shiprocket so your pickles arrive fresh and safe.
           </p>
         </div>
+      </section>
+
+      <div className="container mx-auto max-w-3xl px-4 py-14 md:px-8">
+        <div className="space-y-5">
+          {sections.map((s) => (
+            <div key={s.title} className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-7 md:p-8">
+              <h2 className="font-serif text-xl font-bold text-[var(--color-text)] md:text-2xl">{s.title}</h2>
+              <p className="mt-3 leading-relaxed text-[var(--color-muted)]">{s.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
+
       <Footer />
     </main>
   );

@@ -70,13 +70,19 @@ export default function CheckoutPage() {
     <main className="bg-[var(--color-surface)] min-h-screen">
       <Header />
       
-      <div className="container mx-auto px-4 py-12 md:py-16">
-        <div className="flex flex-col lg:flex-row gap-12">
-          
+      <div className="container mx-auto px-4 py-12 md:py-16 max-w-6xl">
+        <div className="mb-10 text-center">
+          <span className="eyebrow eyebrow-center justify-center">Almost there</span>
+          <h1 className="mt-3 font-serif text-4xl md:text-5xl font-bold tracking-tight text-[var(--color-text)]">
+            Secure <span className="text-gradient-spice">Checkout</span>
+          </h1>
+        </div>
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+
           {/* Left Column: Form */}
           <div className="w-full lg:w-2/3">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-[var(--color-border)]">
-              <h1 className="font-serif text-3xl font-bold text-[var(--color-text)] mb-8 border-b pb-4">Delivery Details</h1>
+            <div className="bg-white p-7 md:p-9 rounded-3xl shadow-warm border border-[var(--color-border)]">
+              <h2 className="font-serif text-2xl md:text-3xl font-bold text-[var(--color-text)] mb-8 border-b border-[var(--color-border)] pb-4">Delivery Details</h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -155,7 +161,7 @@ export default function CheckoutPage() {
 
           {/* Right Column: Order Summary */}
           <div className="w-full lg:w-1/3">
-            <div className="bg-[var(--color-secondary)] p-8 rounded-2xl shadow-sm border border-[var(--color-border)] sticky top-28">
+            <div className="bg-[var(--color-secondary)] p-7 md:p-8 rounded-3xl shadow-warm border border-[var(--color-border)] sticky top-28">
               <h2 className="font-serif text-2xl font-bold text-[var(--color-text)] mb-6">Order Summary</h2>
               
               {cart.length === 0 ? (
