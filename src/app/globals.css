@@ -217,6 +217,10 @@ body {
   .animate-spin-slow {
     animation: spin-slow 26s linear infinite;
   }
+  .animate-marquee-x {
+    animation: marquee-x var(--marquee-duration, 42s) linear infinite;
+    will-change: transform;
+  }
 }
 
 @keyframes float {
@@ -229,10 +233,16 @@ body {
   to { transform: rotate(360deg); }
 }
 
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float,
   .animate-float-slow,
-  .animate-spin-slow {
+  .animate-spin-slow,
+  .animate-marquee-x {
     animation: none;
   }
   html { scroll-behavior: auto; }

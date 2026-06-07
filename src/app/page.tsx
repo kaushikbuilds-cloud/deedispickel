@@ -2,6 +2,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
+import ProductCoverflow from "@/components/ProductCoverflow";
 import ProductGrid from "@/components/ProductGrid";
 import Marquee from "@/components/Marquee";
 import WhyDeedis from "@/components/WhyDeedis";
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <HeroSection />
       <TrustBar />
+      <ProductCoverflow />
       <ProductGrid />
       <Marquee />
       <WhyDeedis />

@@ -78,7 +78,7 @@ export default function CartDrawer() {
           ) : (
             <div className="flex flex-col gap-6">
               {cart.map((item) => (
-                <div key={item.id} className="flex gap-4 border-b border-[var(--color-border)] pb-6 last:border-0 last:pb-0">
+                <div key={`${item.id}-${item.weight}`} className="flex gap-4 border-b border-[var(--color-border)] pb-6 last:border-0 last:pb-0">
                   <div className="relative w-20 h-24 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 flex-shrink-0">
                     <Image src={item.image} alt={item.name} fill className="object-contain p-2" />
                   </div>
@@ -86,20 +86,22 @@ export default function CartDrawer() {
                     <div>
                       <div className="flex justify-between items-start">
                         <h3 className="font-bold text-[var(--color-text)] text-sm leading-tight pr-4">{item.name}</h3>
-                        <button 
-                          onClick={() => removeFromCart(item.id)}
+                        <button
+                          onClick={() => removeFromCart(item.id, item.weight)}
                           aria-label="Remove item"
                           className="text-gray-400 hover:text-red-500 transition-colors"
                         >
                           <X className="w-4 h-4" />
                         </button>
                       </div>
-                      <p className="text-xs text-gray-500 mt-1">₹{item.price.toFixed(2)}</p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        <span className="font-semibold text-[var(--color-text)]">{item.weight}</span> · ₹{item.price.toFixed(2)}
+                      </p>
                     </div>
                     <div className="flex items-center justify-between mt-2">
                       <div className="flex items-center border border-gray-200 rounded-full bg-white">
                         <button 
-                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.id, item.weight, item.quantity - 1)}
                           aria-label="Decrease quantity"
                           className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-[var(--color-accent-red)] transition-colors"
                         >
@@ -107,7 +109,7 @@ export default function CartDrawer() {
                         </button>
                         <span className="w-8 text-center text-sm font-bold">{item.quantity}</span>
                         <button 
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.id, item.weight, item.quantity + 1)}
                           aria-label="Increase quantity"
                           className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-[var(--color-accent-red)] transition-colors"
                         >
