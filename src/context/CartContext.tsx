@@ -11,11 +11,20 @@ export interface CartItem {
   weight: string;
 }
 
+export interface FlyPayload {
+  src: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  key: number;
+}
+
 interface CartContextType {
   cart: CartItem[];
   addToCart: (item: Omit<CartItem, "quantity">) => void;
-  removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
+  removeFromCart: (id: string, weight: string) => void;
+  updateQuantity: (id: string, weight: string, quantity: number) => void;
   clearCart: () => void;
   isCartOpen: boolean;
   setIsCartOpen: (isOpen: boolean) => void;
@@ -23,6 +32,9 @@ interface CartContextType {
   showToast: boolean;
   toastMessage: string;
   setShowToast: (show: boolean) => void;
+  fly: FlyPayload | null;
+  flyToCart: (src: string, rect: DOMRect) => void;
+  clearFly: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -33,6 +45,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [isMounted, setIsMounted] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [showToast, setShowToast] = useState(false);
+  const [fly, setFly] = useState<FlyPayload | null>(null);
+
+  const flyToCart = (src: string, rect: DOMRect) => {
+    // Respect reduced-motion: skip the flying animation.
+    if (typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    setFly({ src, x: rect.left, y: rect.top, w: rect.width, h: rect.height, key: Date.now() });
+  };
+
+  const clearFly = () => setFly(null);
 
   // Load from local storage on mount
   useEffect(() => {
@@ -56,10 +79,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: Omit<CartItem, "quantity">) => {
     setCart((prev) => {
-      const existing = prev.find((item) => item.id === product.id);
+      // A line item is unique per product + size, so the same pickle in two
+      // sizes shows as two separate lines with their own price.
+      const existing = prev.find(
+        (item) => item.id === product.id && item.weight === product.weight
+      );
       if (existing) {
         return prev.map((item) =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === product.id && item.weight === product.weight
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       }
       return [...prev, { ...product, quantity: 1 }];
@@ -70,17 +99,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setShowToast(true);
   };
 
-  const removeFromCart = (id: string) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+  const removeFromCart = (id: string, weight: string) => {
+    setCart((prev) => prev.filter((item) => !(item.id === id && item.weight === weight)));
   };
 
-  const updateQuantity = (id: string, quantity: number) => {
+  const updateQuantity = (id: string, weight: string, quantity: number) => {
     if (quantity <= 0) {
-      removeFromCart(id);
+      removeFromCart(id, weight);
       return;
     }
     setCart((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, quantity } : item))
+      prev.map((item) =>
+        item.id === id && item.weight === weight ? { ...item, quantity } : item
+      )
     );
   };
 
@@ -105,6 +136,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         showToast,
         toastMessage,
         setShowToast,
+        fly,
+        flyToCart,
+        clearFly,
       }}
     >
       {children}

@@ -2,6 +2,7 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import TrustBar from "@/components/TrustBar";
+import ProductCoverflow from "@/components/ProductCoverflow";
 import ProductGrid from "@/components/ProductGrid";
 import Marquee from "@/components/Marquee";
 import WhyDeedis from "@/components/WhyDeedis";
@@ -14,11 +15,12 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative w-full overflow-hidden bg-[var(--color-primary)]">
+    <main className="relative w-full overflow-x-clip bg-[var(--color-primary)]">
       <AnnouncementBar />
       <Header />
       <HeroSection />
       <TrustBar />
+      <ProductCoverflow />
       <ProductGrid />
       <Marquee />
       <WhyDeedis />

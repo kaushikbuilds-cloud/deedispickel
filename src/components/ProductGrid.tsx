@@ -6,7 +6,7 @@ import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 import { products, Product } from "@/data/products";
 import { motion, AnimatePresence, Variants } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 const containerVariants: Variants = {
   hidden: {},
@@ -19,10 +19,12 @@ const itemVariants: Variants = {
 };
 
 function SizePickerModal({ product, onClose }: { product: Product; onClose: () => void }) {
-  const { addToCart } = useCart();
+  const { addToCart, flyToCart } = useCart();
+  const thumbRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (variantIndex: number) => {
     const v = product.variants[variantIndex];
+    if (thumbRef.current) flyToCart(product.image, thumbRef.current.getBoundingClientRect());
     addToCart({ ...product, price: v.price, weight: v.weight });
     onClose();
   };
@@ -52,7 +54,7 @@ function SizePickerModal({ product, onClose }: { product: Product; onClose: () =
           </button>
 
           <div className="mb-6 flex items-center gap-4">
-            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-[var(--color-secondary)]">
+            <div ref={thumbRef} className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl bg-[var(--color-secondary)]">
               <Image src={product.image} alt={product.name} fill className="object-contain p-1" />
             </div>
             <div>

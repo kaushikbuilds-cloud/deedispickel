@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { ShoppingBag, Menu, X } from "lucide-react";
+import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -123,12 +124,18 @@ export default function Header() {
               className="relative flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/70 px-4 py-2 text-[var(--color-text)] shadow-sm transition-all hover:border-red-200 hover:text-[var(--color-accent-red)] hover:shadow-md"
               aria-label="Open cart"
             >
-              <ShoppingBag className="h-5 w-5 md:h-[22px] md:w-[22px]" />
+              <ShoppingBag data-cart-target className="h-5 w-5 md:h-[22px] md:w-[22px]" />
               <span className="hidden text-sm font-bold md:inline-block">Cart</span>
               {itemCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md animate-in zoom-in">
+                <motion.span
+                  key={itemCount}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 16 }}
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md"
+                >
                   {itemCount}
-                </span>
+                </motion.span>
               )}
             </button>
             </nav>
@@ -143,11 +150,17 @@ export default function Header() {
               className="relative flex items-center gap-2 rounded-full border border-[var(--color-border)] bg-white/70 px-3 py-2 text-[var(--color-text)] shadow-sm transition-all hover:text-[var(--color-accent-red)] md:hidden"
               aria-label="Open cart"
             >
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag data-cart-target className="h-5 w-5" />
               {itemCount > 0 && (
-                <span className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md animate-in zoom-in">
+                <motion.span
+                  key={itemCount}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 16 }}
+                  className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-yellow)] text-[10px] font-bold text-white shadow-md"
+                >
                   {itemCount}
-                </span>
+                </motion.span>
               )}
             </button>
           </div>
